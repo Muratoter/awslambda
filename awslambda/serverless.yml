@@ -3,6 +3,9 @@ service: awslambda
 frameworkVersion: '2'
 
 custom:
+  dynamodb:
+    stages:
+      - dev
   tableName: 'users-table-${self:provider.stage}'
   wsgi:
     app: app.app
@@ -12,6 +15,7 @@ provider:
   runtime: python3.8
   lambdaHashingVersion: '20201221'
   stage: dev
+  region: us-east-1 
   iam:
     role:
       statements:
@@ -42,6 +46,7 @@ functions:
 plugins:
   - serverless-wsgi
   - serverless-python-requirements
+  - serverless-dynamodb-local
 
 resources:
   Resources:
